@@ -22,53 +22,153 @@ Role prompting involves assigning the model a specific persona or role to influe
 
 Instruction prompting gives a clear, directive instruction outlining exactly what needs to be done.
 # Test Scenarios
-### 1. Math Problem Solving
-In this scenario, a basic multiplication problem (37 multiplied by 89) is used to test the effect of zero-shot versus chain-of-thought prompting.
+## Scenario 1: Math Problem Solving
+#### Prompt Type: Zero-shot
 
-With a zero-shot prompt like “What is 37 × 89?”, the model tends to output a quick answer but may make calculation errors due to lack of intermediate reasoning.
+Prompt: "What is 37 × 89?"
 
-When using chain-of-thought prompting, such as “Solve step by step: What is 37 × 89?”, the model explains its reasoning process and typically arrives at the correct result.
+#### ChatGPT Response: 
+“The answer is 3293.”
 
-### 2. Email Writing
-This scenario examines how an email draft changes based on prompt style.
+#### Gemini Response: 
+“37 multiplied by 89 is 3293.”
 
-A broad, unstructured prompt like “Write an email to my professor” often results in an overly generic or casual message.
+#### Prompt Type: Chain-of-Thought
 
-In contrast, a role + instruction prompt such as “You are a polite university student. Write a formal email to your professor requesting an extension on your assignment due to illness,” produces a well-structured, respectful, and context-appropriate email.
+Prompt: "Solve step by step: What is 37 × 89?"
 
-### 3. Summarization
-Here, the goal is to see how models perform when asked to summarize a news article.
+#### ChatGPT Response:
+“Let’s break it down:
+30 × 89 = 2670
+7 × 89 = 623
+Now, 2670 + 623 = 3293.”
 
-A zero-shot prompt like “Summarize this article” typically leads to vague or superficial summaries, lacking focus on key points.
+#### Gemini Response:
+“First, split 37 into 30 and 7.
+30 × 89 = 2670
+7 × 89 = 623
+Final answer: 2670 + 623 = 3293.”
 
-An instructional prompt, such as “Summarize this article in 3 sentences, focusing on causes and consequences,” leads to more relevant, targeted summaries that capture the most important information.
+## Scenario 2: Email Writing
+#### Prompt Type: Broad
 
-### 4. Coding Task
-This scenario explores how LLMs perform when asked to write code for sorting a list.
+Prompt: "Write an email to my professor."
 
-An unstructured prompt like “Write Python code for sorting” often results in a quick response using Python’s built-in sort() method.
+#### ChatGPT Response:
+“Hi Professor,
+I hope you're doing well. I wanted to ask about our assignment…”
 
-A few-shot prompt provides a specific requirement and an example, such as: “Write a Python function using the Bubble Sort algorithm to sort the list [4, 1, 5, 2]. The expected output is [1, 2, 4, 5].” This guides the model to use the correct algorithm and produce code that matches the requirement.
+#### Gemini Response:
+“Dear Professor,
+I have a few questions regarding our recent lecture…”
 
-### 5. Fact-Based Q&A
-This scenario tests the model’s ability to provide factual information about Mars.
+#### Prompt Type: Role + Instruction
 
-A basic prompt like “Tell me about Mars” usually returns a general overview with mixed or loosely related facts.
+Prompt: "You are a polite university student. Write a formal email to your professor requesting an extension on your assignment due to illness."
 
-An instructional prompt, for example “List three scientific facts about Mars, including its atmosphere, temperature, and the possibility of life,” ensures that the response is well-organized, accurate, and directly answers the request.
+#### ChatGPT Response:
+“Dear Professor [Last Name],
+I hope this email finds you well. I am writing to request a short extension for the assignment due on [date] as I have been unwell…”
 
-# Evaluation Criteria
-Responses in each scenario are evaluated based on the following:
+#### Gemini Response:
+“Dear Professor,
+I’m currently recovering from an illness and would appreciate a deadline extension for the upcoming assignment…”
 
-Accuracy: How factually correct is the content?
+## Scenario 3: Summarization
+#### Prompt Type: Zero-shot
 
-Relevance: Does the response directly address the request?
+#### Prompt: "Summarize this article."
 
-Depth: How detailed and insightful is the output?
+#### ChatGPT Response:
+“This article discusses recent developments in climate policy, highlighting global cooperation efforts.”
 
-Coherence: Is the language fluent and logically structured?
+#### Gemini Response:
+“The article is about climate change and mentions actions taken by different countries.”
 
-Creativity: Does the model present the information in a thoughtful or engaging way?
+#### Prompt Type: Instruction
+
+Prompt: "Summarize this article in 3 sentences, focusing on causes and consequences."
+
+#### ChatGPT Response:
+“The article explains that industrial emissions are a major cause of global warming. It discusses international responses and policies to reduce emissions. The consequences include rising sea levels and extreme weather.”
+
+#### Gemini Response:
+“The article describes emissions as the main cause of climate change. It also shows how this leads to severe weather and rising oceans. Countries are working together to address this issue.”
+
+## Scenario 4: Coding Task
+#### Prompt Type: Unstructured
+
+Prompt: "Write Python code for sorting."
+
+#### ChatGPT Response:
+
+python
+```
+my_list = [5, 2, 1, 4]
+my_list.sort()
+print(my_list)
+```
+#### Gemini Response:
+
+python
+```
+numbers = [3, 1, 4, 2]
+print(sorted(numbers))
+```
+#### Prompt Type: Few-shot
+Prompt: "Write a Python function using Bubble Sort to sort the list [4, 1, 5, 2]. The expected output is [1, 2, 4, 5]."
+
+#### ChatGPT Response:
+
+python
+```
+def bubble_sort(lst):
+    n = len(lst)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if lst[j] > lst[j+1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+
+print(bubble_sort([4, 1, 5, 2]))
+```
+#### Gemini Response:
+
+python
+```
+def bubble_sort(nums):
+    for i in range(len(nums)):
+        for j in range(0, len(nums)-i-1):
+            if nums[j] > nums[j+1]:
+                nums[j], nums[j+1] = nums[j+1], nums[j]
+    return nums
+
+bubble_sort([4, 1, 5, 2])
+```
+## Scenario 5: Fact-Based Q&A
+#### Prompt Type: Basic
+
+Prompt: "Tell me about Mars."
+
+#### ChatGPT Response:
+“Mars is the fourth planet from the Sun and is often called the Red Planet. It has a thin atmosphere composed mostly of carbon dioxide and surface features similar to both the Moon and Earth.”
+
+#### Gemini Response:
+“Mars is known as the Red Planet. It’s the fourth planet from the Sun and has dry, rocky terrain with polar ice caps.”
+
+#### Prompt Type: Instruction
+
+Prompt: "List three scientific facts about Mars, including its atmosphere, temperature, and the possibility of life."
+
+#### ChatGPT Response:
+“1. Mars has a thin atmosphere made primarily of carbon dioxide.
+2. Its average surface temperature is around -63°C.
+3. There is no confirmed life, but evidence suggests Mars once had liquid water.”
+
+#### Gemini Response:
+“1. Mars has a CO2-dominated thin atmosphere.
+2. Surface temperatures average about -60°C.
+3. Signs of past water suggest it might have supported microbial life.”
 
 # RESULT
 Broad or unstructured prompts tend to produce faster responses but are often less reliable, with occasional factual inaccuracies or shallow content.
